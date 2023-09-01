@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Javascript application with PKCE</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script language="JavaScript">
+        function generateState(length) {
+            let statValue = "";
+            let alphaNumericCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789";
+            const alphaNumericCharacterLength = alphaNumericCharacters.length;
+            for (let i = 0; i < length; i++) {
+                statValue += alphaNumericCharacters.charAt(Math.floor(Math.random() * alphaNumericCharacterLength));
+            }
+            document.getElementById("stateValue").innerHTML = statValue;
+        }
+
+        function base64uriencode(sourceValue) {
+            let stringValue = String.fromCharCode().apply(null, sourceValue);
+            let base64Encoded = btoa(stringValue);
+            let  base64uriEncoded = base64Encoded.replace(/\+g,'-').replace(/\//g, "-)
+        }
+
+        function generateCodeVerifier() {
+            let returnValue = "";
+            const randomByteArray = new Uint8Array(32);
+            window.crypto.getRandomValues(randomByteArray);
+            returnValue = base64uriencode(randomByteArray);
+            document.getElementById("codeVerifierValue").innerHTML = returnValue;
+        }
+
+
+    </script>
+</head>
+<body>
+    <h1> Index page</h1>
+
+        <div id="stateValue"></div>
+        <div><input type="button" value="Generate State value" onclick="generateState(30)"></div>
+</body>
+</html>

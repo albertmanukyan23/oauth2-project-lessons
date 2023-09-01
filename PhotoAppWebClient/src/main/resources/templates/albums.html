@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Albums page</title>
+</head>
+<body>
+<h1>Albums page</h1>
+
+    <div th:if="${albums.isEmpty()}">
+        <div> No Albums Found</div>
+    </div>
+    <div th:each="album:${albums}">
+        <p><span th:text="${album.getAlbumTitle()}"></span></p>
+    </div>
+
+</body>
+</html>
